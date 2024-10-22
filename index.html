@@ -13,10 +13,11 @@
     <div class="content" contenteditable="true"></div>
   </div>
 
+  <div id="saved-rows"></div>
+
   <script type="text/javascript">
     const appendRow = document.getElementById('append-row');
     const appendRowTime = appendRow.getElementsByClassName('time')[0];
-    const appendRowContent = appendRow.getElementsByClassName('content')[0];
 
     function updateAppendRowTIme() {
       const time = new Date();
@@ -37,6 +38,24 @@
     setInterval(() => {
       updateAppendRowTIme();
     }, 1000);
+
+    const appendRowContent = appendRow.getElementsByClassName('content')[0];
+    const savedRows = document.getElementById('saved-rows');
+
+    appendRowContent.addEventListener('keyup', (e) => {
+      if (!e.getModifierState('Shift') && e.key == 'Enter') {
+        const appendTime = appendRowTime.innerText;
+        const appendContent = appendRowContent.innerText;
+        savedRows.insertAdjacentHTML('afterbegin', `
+        <div class="row">
+          <div class="time">${appendTime}</div>
+          <div class="content">${appendContent}</div>
+        </div>
+        `);
+
+        appendRowContent.innerText = '';
+      }
+    });
   </script>
 </body>
 </html>
