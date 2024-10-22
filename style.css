@@ -1,0 +1,26 @@
+html, body {
+  margin: 0;
+  background-color: black;
+  font-family: Verdana, sans-serif;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  max-width: 960px;
+  margin: 20px auto;
+}
+
+.time {
+  color: gray;
+  margin-top: 11px;
+  margin-right: 20px;
+}
+
+.content {
+  flex: 1;
+  padding: 10px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 20px;
+}
