@@ -8,13 +8,35 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <div class="row">
-    <div class="time">
-      2024-10-21 23:04:55
-    </div>
-    <div class="content">
-      Text text text
-    </div>
+  <div id="append-row" class="row">
+    <div class="time"></div>
+    <div class="content" contenteditable="true"></div>
   </div>
+
+  <script type="text/javascript">
+    const appendRow = document.getElementById('append-row');
+    const appendRowTime = appendRow.getElementsByClassName('time')[0];
+    const appendRowContent = appendRow.getElementsByClassName('content')[0];
+
+    function updateAppendRowTIme() {
+      const time = new Date();
+      const year = time.getFullYear();
+      const month = ('00' + (time.getMonth() + 1)).slice(-2);
+      const date = time.getDate();
+      const hours = time.getHours();
+      const minutes = time.getMinutes();
+      const seconds = ('00' + (time.getSeconds())).slice(-2);
+
+      const timeLabel =
+        year + '-' + month + '-' + date + ' ' +
+        hours + ':' + minutes + ':' + seconds;
+      appendRowTime.innerText = timeLabel;
+    }
+    updateAppendRowTIme();
+
+    setInterval(() => {
+      updateAppendRowTIme();
+    }, 1000);
+  </script>
 </body>
 </html>
