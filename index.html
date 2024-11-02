@@ -39,6 +39,15 @@
       updateAppendRowTIme();
     }, 1000);
 
+    function addRow(time, content) {
+      savedRows.insertAdjacentHTML('afterbegin', `
+        <div class="row">
+          <div class="time">${time}</div>
+          <div class="content">${content}</div>
+        </div>
+        `);
+    }
+
     const appendRowContent = appendRow.getElementsByClassName('content')[0];
     const savedRows = document.getElementById('saved-rows');
 
@@ -56,16 +65,27 @@
         fetch(databaseEndpoint);
 
         // update UI
-        savedRows.insertAdjacentHTML('afterbegin', `
-        <div class="row">
-          <div class="time">${appendTime}</div>
-          <div class="content">${appendContent}</div>
-        </div>
-        `);
-
+        addRow(appendTime, appendContent);
         appendRowContent.innerText = '';
       }
     });
+
+    function loadRows() {
+      const databaseEndpoint = window.location.href + 'db.php';
+
+      fetch(databaseEndpoint).then((response) => {
+        response.text().then((text) => {
+          text.trim().split('\n').forEach(line => {
+            lineParts = line.split(';');
+            if (lineParts.length == 2) {
+              addRow(lineParts[0], lineParts[1]);
+            }
+          });
+        })
+      });
+    }
+
+    loadRows();
   </script>
 </body>
 </html>
