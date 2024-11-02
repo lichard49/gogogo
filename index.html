@@ -46,6 +46,16 @@
       if (!e.getModifierState('Shift') && e.key == 'Enter') {
         const appendTime = appendRowTime.innerText;
         const appendContent = appendRowContent.innerText;
+
+        // hit database endpoint with content
+        const databaseEndpoint = window.location.href +
+          'db.php?data=' +
+          appendTime +
+          ';' +
+          appendContent;
+        fetch(databaseEndpoint);
+
+        // update UI
         savedRows.insertAdjacentHTML('afterbegin', `
         <div class="row">
           <div class="time">${appendTime}</div>
