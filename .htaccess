@@ -1,0 +1,8 @@
+# From: https://www.cs.washington.edu/lab/web#authentication
+
+#Activates the Authentication Plugin
+AuthType Shibboleth
+# Makes it a requirement 
+ShibRequestSetting requireSession 1
+
+Require user lichard@cs.washington.edu
